@@ -223,27 +223,35 @@ class Host
     }
 
     /**
-     * Set groups
-     *
-     * @param array $groups
-     */
-    public function setGroups(array $groups) : self
-    {
-        $this->groups = $groups;
-
-        return $this;
-    }
-
-    /**
      * Add groups
      *
      * @param Group $group
      */
     public function addGroup(Group $group) : self
     {
-        if (!$this->groups->contains($group)) {
-            $this->groups->add($group);
+        if ($this->groups->contains($group)) {
+            return $this;
         }
+
+        $this->groups->add($group);
+        $group->addHost($this);
+
+        return $this;
+    }
+
+    /**
+     * Remove groups
+     *
+     * @param Group $group
+     */
+    public function removeGroup(Group $group) : self
+    {
+        if (!$this->groups->contains($group)) {
+            return $this;
+        }
+
+        $this->groups->removeElement($group);
+        $group->removeHost($this);
 
         return $this;
     }

@@ -75,6 +75,7 @@ class Group
     private $parentGroups;
 
     public function __construct() {
+        //throw new Exception('foo');
         $this->hosts = new ArrayCollection();
         $this->childGroups = new ArrayCollection();
         $this->parentGroups = new ArrayCollection();
@@ -171,32 +172,35 @@ class Group
     }
 
     /**
-     * Set hosts
-     *
-     * @param array $hosts
-     */
-    public function setHosts($hosts) : self
-    {
-        $this->hosts = $hosts;
-        //foreach ($hosts as $host) {
-        //    $this->hosts->add($host);
-        //}
-
-        return $this;
-    }
-
-    /**
      * Add host
      *
      * @param Host $host
      */
     public function addHost(Host $host) : self
     {
-        //$this->hosts[] = $host;
-        if (!$this->hosts->contains($host)) {
-            $host->addGroup($this);
-            $this->hosts->add($host);
+        if ($this->hosts->contains($host)) {
+            return $this;
         }
+
+        $this->hosts->add($host);
+        $host->addGroup($this);
+
+        return $this;
+    }
+
+    /**
+     * Remove host
+     *
+     * @param Host $host
+     */
+    public function removeHost(Host $host) : self
+    {
+        if (!$this->hosts->contains($host)) {
+            return $this;
+        }
+
+        $this->hosts->removeElement($host);
+        $host->removeGroup($this);
 
         return $this;
     }
