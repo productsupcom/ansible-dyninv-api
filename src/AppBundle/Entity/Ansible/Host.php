@@ -4,7 +4,7 @@ namespace AppBundle\Entity\Ansible;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\Common\Collections\Collection\ArrayCollection;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Serializer\Annotation\Groups;
 use AppBundle\Entity\Ansible\Group;
 
@@ -12,7 +12,7 @@ use AppBundle\Entity\Ansible\Group;
  * Host
  *
  * @ApiResource
- * @ORM\Table(name="host")
+ * @ORM\Table(name="ansible_hosts")
  * @ORM\Entity(repositoryClass="AppBundle\Entity\Ansible\HostRepository")
  * @ORM\HasLifecycleCallbacks
  */
@@ -74,7 +74,7 @@ class Host
      * @var ArrayCollection|Group[]
      *
      * @ORM\ManyToMany(targetEntity="Group", inversedBy="hosts", cascade={"persist"})
-     * @ORM\JoinTable(name="hostgroups",
+     * @ORM\JoinTable(name="ansible_hostgroups",
      *      joinColumns={@ORM\JoinColumn(name="host_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="group_id", referencedColumnName="id")}
      *      )
@@ -138,7 +138,7 @@ class Host
      *
      * @return string
      */
-    public function getFqdn() : string
+    public function getFqdn() : ?string
     {
         return $this->fqdn;
     }

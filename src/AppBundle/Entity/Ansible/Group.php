@@ -15,7 +15,7 @@ use AppBundle\Entity\Ansible\Host;
  * Group
  *
  * @ApiResource
- * @ORM\Table(name="`group`")
+ * @ORM\Table(name="`ansible_group`")
  * @ORM\Entity(repositoryClass="AppBundle\Entity\Ansible\GroupRepository")
  */
 class Group
@@ -67,7 +67,7 @@ class Group
     /**
      * @var ArrayCollection|Group[]
      * @ORM\ManyToMany(targetEntity="Group", inversedBy="childGroups")
-     * @ORM\JoinTable(name="childgroups",
+     * @ORM\JoinTable(name="ansible_childgroups",
      *      joinColumns={@ORM\JoinColumn(name="child_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="parent_id", referencedColumnName="id")}
      *      )
