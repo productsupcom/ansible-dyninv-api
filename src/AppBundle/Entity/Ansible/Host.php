@@ -11,7 +11,40 @@ use AppBundle\Entity\Ansible\Group;
 /**
  * Host
  *
- * @ApiResource
+ * @ApiResource(
+ * attributes={
+ *     "filters"={"host.search"}
+ * },
+ * itemOperations={
+ *     "get"={"method"="GET"},
+ *     "put"={"method"="PUT"},
+ *     "delete"={"method"="DELETE"},
+ *     "special"={
+ *         "method"="GET",
+ *         "path"="/api/inventory/{ansible_host}",
+ *         "route_name"="ansible_host_special",
+ *         "normalization_context"={"groups"={"inventory"}},
+ *         "swagger_context"= {
+ *            "parameters" = {
+ *               {
+ *                 "name" = "ansible_host",
+ *                 "in" = "path",
+ *                 "required" = "true",
+ *                 "type" = "string",
+ *               }
+ *             },
+ *             "consumes" = {
+ *               "application/json"
+ *             },
+ *             "produces" = {
+ *               "application/json"
+ *             }
+ *         },
+ *         "hydra_context" = {
+ *            "foo"="bar"
+ *         }
+ *     }
+ * })
  * @ORM\Table(name="ansible_hosts")
  * @ORM\Entity(repositoryClass="AppBundle\Entity\Ansible\HostRepository")
  * @ORM\HasLifecycleCallbacks
@@ -123,7 +156,7 @@ class Host
     /**
      * Set FQDN
      *
-     * @param string $host
+     * @param string $fqdn
      * @return Host
      */
     public function setFqdn(string $fqdn) : self
@@ -141,6 +174,30 @@ class Host
     public function getFqdn() : ?string
     {
         return $this->fqdn;
+    }
+
+    /**
+     * Get the Ansible host
+     * Try to figure out based on the set fields what to return
+     *
+     * @Groups({"inventory"})
+     * @return string
+     */
+    public function getAnsibleHost() : ?string
+    {
+        if (!empty($this->fqdn)) {
+            return $this->fqdn;
+        }
+
+        if (!empty($this->hostname) && !empty($this->domain)) {
+            return sprintf("%s.%s", $this->hostname, $this->domain);
+        }
+
+        if (!empty($this->ip)) {
+            return $this->ip;
+        }
+
+        return null;
     }
 
     /**
