@@ -27,7 +27,7 @@ security:
                 require_previous_session: false
 
         main:
-            pattern:   ^/api/(hosts|groups)
+            pattern:   ^/api/(hosts|groups|inventory|users)
             provider: fos_userbundle
             stateless: true
             anonymous: true

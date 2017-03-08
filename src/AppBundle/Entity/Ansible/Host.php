@@ -11,40 +11,7 @@ use AppBundle\Entity\Ansible\Group;
 /**
  * Host
  *
- * @ApiResource(
- * attributes={
- *     "filters"={"host.search"}
- * },
- * itemOperations={
- *     "get"={"method"="GET"},
- *     "put"={"method"="PUT"},
- *     "delete"={"method"="DELETE"},
- *     "special"={
- *         "method"="GET",
- *         "path"="/api/inventory/{ansible_host}",
- *         "route_name"="ansible_host_special",
- *         "normalization_context"={"groups"={"inventory"}},
- *         "swagger_context"= {
- *            "parameters" = {
- *               {
- *                 "name" = "ansible_host",
- *                 "in" = "path",
- *                 "required" = "true",
- *                 "type" = "string",
- *               }
- *             },
- *             "consumes" = {
- *               "application/json"
- *             },
- *             "produces" = {
- *               "application/json"
- *             }
- *         },
- *         "hydra_context" = {
- *            "foo"="bar"
- *         }
- *     }
- * })
+ * @ApiResource()
  * @ORM\Table(name="ansible_hosts")
  * @ORM\Entity(repositoryClass="AppBundle\Entity\Ansible\HostRepository")
  * @ORM\HasLifecycleCallbacks
