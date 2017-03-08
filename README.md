@@ -6,7 +6,7 @@ This project is still in Alpha status, use at your own risk. Pull requests are m
 
 ## Installation
 
-This project is based on [api-platform][https://api-platform.com] so can be easily extended. It requires PHP7.1, so make sure it's installed.
+This project is based on [api-platform](https://api-platform.com) so can be easily extended. It requires PHP7.1, so make sure it's installed.
 After that the following is needed:
 
 ```
@@ -30,7 +30,7 @@ $ chown -R www-data:www-data var/sessions   # sessions
 
 ## UI
 
-The UI is provided seperately, you can find it here: [ansible-dyninv-ui][github linky].
+The UI is provided seperately, you can find it here: [ansible-dyninv-api-ui](https://github.com/productsupcom/ansible-dyninv-api-ui)
 
 ## Dynamic Inventory Script
 
@@ -56,6 +56,6 @@ ansible-playbook -i api.py --limit groupFoo
 ```
 
 # LICENSE
-```
-# Copyright (c) 2017 Productsup GmbH, Yorick Terweijden yt@productsup.com
-```
+Initial work is based on [api-platform](https://api-platform.com), the License from there applies.
+
+Everything else (`src/AppBundle/`) is Copyright (c) 2017 Productsup GmbH, Yorick Terweijden yt@productsup.com
