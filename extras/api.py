@@ -128,7 +128,7 @@ class AnsibleDynInv(object):
         resp = requests.get('%s%s' % (self.server, '/api/inventory'), headers=headers)
         if resp.status_code != 200:
             # This means something went wrong.
-            raise StandardError('POST /login_check {}'.format(resp.status_code))
+            raise StandardError('GET /api/inventory {}'.format(resp.status_code))
 
         self.inventory = resp.json()
         self.write_to_cache(self.inventory, self.cache_path_inventory)
@@ -142,7 +142,7 @@ class AnsibleDynInv(object):
                               headers={'Accept':'application/json'})
         if login.status_code != 200:
             # This means something went wrong.
-            raise StandardError('GET /api/inventory {}'.format(login.status_code))
+            raise StandardError('POST /login_check {}'.format(login.status_code))
         self.token = login.json()['token']
 
 
