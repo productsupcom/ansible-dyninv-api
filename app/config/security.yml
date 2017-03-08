@@ -27,14 +27,14 @@ security:
                 require_previous_session: false
 
         main:
-            pattern:   ^/api
+            pattern:   ^/api/(hosts|groups|inventory|users)
             provider: fos_userbundle
             stateless: true
             anonymous: true
             lexik_jwt: ~
 
         dev:
-            pattern:  ^/(_(profiler|wdt)|css|images|js)/
+            pattern:  ^/(_(profiler|wdt)|^/api/docs|css|images|js)/
             security: false
 
 

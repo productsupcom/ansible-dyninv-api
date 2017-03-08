@@ -11,7 +11,7 @@ use AppBundle\Entity\Ansible\Group;
 /**
  * Host
  *
- * @ApiResource
+ * @ApiResource()
  * @ORM\Table(name="ansible_hosts")
  * @ORM\Entity(repositoryClass="AppBundle\Entity\Ansible\HostRepository")
  * @ORM\HasLifecycleCallbacks
@@ -123,7 +123,7 @@ class Host
     /**
      * Set FQDN
      *
-     * @param string $host
+     * @param string $fqdn
      * @return Host
      */
     public function setFqdn(string $fqdn) : self
@@ -141,6 +141,30 @@ class Host
     public function getFqdn() : ?string
     {
         return $this->fqdn;
+    }
+
+    /**
+     * Get the Ansible host
+     * Try to figure out based on the set fields what to return
+     *
+     * @Groups({"inventory"})
+     * @return string
+     */
+    public function getAnsibleHost() : ?string
+    {
+        if (!empty($this->fqdn)) {
+            return $this->fqdn;
+        }
+
+        if (!empty($this->hostname) && !empty($this->domain)) {
+            return sprintf("%s.%s", $this->hostname, $this->domain);
+        }
+
+        if (!empty($this->ip)) {
+            return $this->ip;
+        }
+
+        return null;
     }
 
     /**

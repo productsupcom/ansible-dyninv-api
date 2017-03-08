@@ -14,7 +14,14 @@ use AppBundle\Entity\Ansible\Host;
 /**
  * Group
  *
- * @ApiResource
+ * @ApiResource(collectionOperations={
+ *     "get"={"method"="GET"},
+ *     "post"={"method"="POST"},
+ *     "special"={
+ *         "route_name"="ansible_group_special",
+ *         "normalization_context"={"groups"={"inventory"}}
+ *     }
+ * })
  * @ORM\Table(name="`ansible_group`")
  * @ORM\Entity(repositoryClass="AppBundle\Entity\Ansible\GroupRepository")
  */
@@ -34,6 +41,7 @@ class Group
      *
      * @Assert\Type(type="string")
      * @ORM\Column(name="name", type="string", length=255)
+     * @Groups({"inventory"})
      */
     private $name;
 
@@ -41,6 +49,7 @@ class Group
      * @var array
      *
      * @ORM\Column(name="`variables`", type="json_array", nullable=true)
+     * @Groups({"inventory"})
      */
     private $variables;
 
@@ -55,6 +64,7 @@ class Group
     /**
      * @var ArrayCollection|Host[]
      * @ORM\ManyToMany(targetEntity="Host", mappedBy="groups", cascade={"persist"})
+     * @Groups({"inventory"})
      */
     private $hosts;
 
@@ -75,7 +85,6 @@ class Group
     private $parentGroups;
 
     public function __construct() {
-        //throw new Exception('foo');
         $this->hosts = new ArrayCollection();
         $this->childGroups = new ArrayCollection();
         $this->parentGroups = new ArrayCollection();
@@ -201,6 +210,94 @@ class Group
 
         $this->hosts->removeElement($host);
         $host->removeGroup($this);
+
+        return $this;
+    }
+
+    /**
+     * Get child-groups
+     *
+     * @return array
+     */
+    public function getChildGroups()
+    {
+        return $this->childGroups;
+    }
+
+    /**
+     * Add child-group
+     *
+     * @param Group $group
+     */
+    public function addChildGroup(Group $group) : self
+    {
+        if ($this->childGroups->contains($group)) {
+            return $this;
+        }
+
+        $this->childGroups->add($group);
+        $group->addParentGroup($this);
+
+        return $this;
+    }
+
+    /**
+     * Remove child-group
+     *
+     * @param Host $host
+     */
+    public function removeChildGroup(Group $group) : self
+    {
+        if (!$this->childGroups->contains($group)) {
+            return $this;
+        }
+
+        $this->childGroups->removeElement($group);
+        $group->removeParentGroup($this);
+
+        return $this;
+    }
+
+    /**
+     * Get parent-groups
+     *
+     * @return array
+     */
+    public function getParentGroups()
+    {
+        return $this->parentGroups;
+    }
+
+    /**
+     * Add parent-group
+     *
+     * @param Group $group
+     */
+    public function addParentGroup(Group $group) : self
+    {
+        if ($this->parentGroups->contains($group)) {
+            return $this;
+        }
+
+        $this->parentGroups->add($group);
+        //$host->addGroup($this);
+
+        return $this;
+    }
+
+    /**
+     * Remove parent-group
+     *
+     * @param Host $host
+     */
+    public function removeParentGroup(Group $group) : self
+    {
+        if (!$this->parentGroups->contains($group)) {
+            return $this;
+        }
+
+        $this->parentGroups->removeElement($group);
+        //$host->removeGroup($this);
 
         return $this;
     }

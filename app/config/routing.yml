@@ -16,3 +16,11 @@ fos_user:
 
 #api_login_check:
 #    path: /api/login_check
+
+ansible_host_special:
+    path: '/api/inventory/{ansibleHost}'
+    methods:  ['GET']
+    defaults:
+        _controller: 'AppBundle:Ansible\Host:special'
+        _api_item_operation_name: 'special'
+        #_api_resource_class: 'AppBundle\Entity\Ansible\Host'
