@@ -38,21 +38,21 @@ class Host
     /**
      * @var string
      *
-     * @ORM\Column(name="ip", type="string", length=39, unique=true, nullable=true)
+     * @ORM\Column(name="ip", type="string", length=39, unique=false, nullable=true)
      */
     private $ip;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="hostname", type="string", length=255, unique=true, nullable=false)
+     * @ORM\Column(name="hostname", type="string", length=255, unique=false, nullable=false)
      */
     private $hostname;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="domain", type="string", length=255, unique=true, nullable=true)
+     * @ORM\Column(name="domain", type="string", length=255, unique=false, nullable=true)
      */
     private $domain;
 
