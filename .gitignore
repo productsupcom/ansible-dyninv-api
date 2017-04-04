@@ -1,4 +1,5 @@
 /app/config/parameters.yml
+/extras/api.ini
 /app/data/data.db3
 /build/
 /phpunit.xml
