@@ -1,0 +1,13 @@
+<?php
+
+// DB Settings
+$db['host'] = '';
+$db['port'] = '3306';
+$db['database'] = '';
+$db['username'] = '';
+$db['password'] = '';
+
+// API
+$api['url'] = '';
+$api['email'] = '';
+$api['password'] = '';
