@@ -11,7 +11,7 @@ use AppBundle\Entity\Ansible\Group;
 /**
  * Host
  *
- * @ApiResource()
+ * @ApiResource(attributes={"filters"={"host.updated"}})
  * @ORM\Table(name="ansible_hosts")
  * @ORM\Entity(repositoryClass="AppBundle\Entity\Ansible\HostRepository")
  * @ORM\HasLifecycleCallbacks

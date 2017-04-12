@@ -1,4 +1,5 @@
 /app/config/parameters.yml
+/extras/migrate.settings.php
 /extras/api.ini
 /app/data/data.db3
 /build/

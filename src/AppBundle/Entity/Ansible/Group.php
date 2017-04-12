@@ -40,7 +40,7 @@ class Group
      * @var string
      *
      * @Assert\Type(type="string")
-     * @ORM\Column(name="name", type="string", length=255)
+     * @ORM\Column(name="name", type="string", unique=true, length=255)
      * @Groups({"inventory"})
      */
     private $name;

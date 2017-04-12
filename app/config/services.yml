@@ -1,13 +1,8 @@
 # Learn more about services, parameters and containers at
 # http://symfony.com/doc/current/book/service_container.html
-parameters:
-#    parameter_name: value
 
 services:
-    host.search_filter:
-        parent:    'api_platform.doctrine.orm.search_filter'
-        arguments: [ { id: 'exact', ansibleHost: 'exact' } ]
-        tags:      [ { name: 'api_platform.filter', id: 'host.search' } ]
-#    service_name:
-#        class: AppBundle\Directory\ClassName
-#        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
+    host.date_filter:
+        parent:    'api_platform.doctrine.orm.date_filter'
+        arguments: [ { updated: ~ } ] ## critical this NEEDS to be the property in the Entity
+        tags:      [ { name: 'api_platform.filter', id: 'host.updated' } ]
