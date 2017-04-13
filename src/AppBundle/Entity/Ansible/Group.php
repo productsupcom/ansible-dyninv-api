@@ -8,7 +8,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\PersistentCollection;
-use AppBundle\Entity\Ansible\Group;
 use AppBundle\Entity\Ansible\Host;
 
 /**
@@ -84,7 +83,23 @@ class Group
      */
     private $parentGroups;
 
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="created", type="datetime", options={"default": 0})
+     */
+    private $created;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="updated", type="datetime", options={"default": 0})
+     */
+    private $updated;
+
     public function __construct() {
+        $this->created = new \DateTime("now");
+        $this->updated = new \DateTime("now");
         $this->hosts = new ArrayCollection();
         $this->childGroups = new ArrayCollection();
         $this->parentGroups = new ArrayCollection();
@@ -300,5 +315,51 @@ class Group
         //$host->removeGroup($this);
 
         return $this;
+    }
+
+    /**
+     * Set created
+     *
+     * @param \DateTime $created
+     * @return Host
+     */
+    public function setCreated(\DateTime $created) : self
+    {
+        $this->created = $created;
+
+        return $this;
+    }
+
+    /**
+     * Get created
+     *
+     * @return \DateTime
+     */
+    public function getCreated() : \DateTime
+    {
+        return $this->created;
+    }
+
+    /**
+     * Set updated
+     *
+     * @param \DateTime $updated
+     * @return Host
+     */
+    public function setUpdated(\DateTime $updated) : self
+    {
+        $this->updated = $updated;
+
+        return $this;
+    }
+
+    /**
+     * Get updated
+     *
+     * @return \DateTime
+     */
+    public function getUpdated() : \DateTime
+    {
+        return $this->updated;
     }
 }

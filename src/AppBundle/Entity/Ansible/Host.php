@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Serializer\Annotation\Groups;
 use AppBundle\Entity\Ansible\Group;
+use Doctrine\ORM\Event;
 
 /**
  * Host
@@ -84,14 +85,14 @@ class Host
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="created", type="datetime")
+     * @ORM\Column(name="created", type="datetime", options={"default": 0})
      */
     private $created;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="updated", type="datetime")
+     * @ORM\Column(name="updated", type="datetime", options={"default": 0})
      */
     private $updated;
 
@@ -100,14 +101,6 @@ class Host
         $this->created = new \DateTime("now");
         $this->updated = new \DateTime("now");
         $this->enabled = true;
-    }
-
-    private function doStuffOnPreUpdate(PreUpdateEventArgs $event)
-    {
-        //var_dump($event->getEntityChangeSet());
-        //if (!$event->hasChangedField('enabled')) {
-            $this->updated = new \DateTime("now");
-        //}
     }
 
     /**
