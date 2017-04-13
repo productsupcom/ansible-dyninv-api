@@ -13,14 +13,17 @@ use AppBundle\Entity\Ansible\Host;
 /**
  * Group
  *
- * @ApiResource(collectionOperations={
+ * @ApiResource(
+ * collectionOperations={
  *     "get"={"method"="GET"},
  *     "post"={"method"="POST"},
  *     "special"={
  *         "route_name"="ansible_group_special",
  *         "normalization_context"={"groups"={"inventory"}}
- *     }
- * })
+ *     },
+ * },
+ * attributes={"filters"={"group.updated"}}
+ * )
  * @ORM\Table(name="`ansible_group`")
  * @ORM\Entity(repositoryClass="AppBundle\Entity\Ansible\GroupRepository")
  */

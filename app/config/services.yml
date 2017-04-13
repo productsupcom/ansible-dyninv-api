@@ -6,3 +6,7 @@ services:
         parent:    'api_platform.doctrine.orm.date_filter'
         arguments: [ { updated: ~ } ] ## critical this NEEDS to be the property in the Entity
         tags:      [ { name: 'api_platform.filter', id: 'host.updated' } ]
+    group.date_filter:
+        parent:    'api_platform.doctrine.orm.date_filter'
+        arguments: [ { updated: ~ } ]
+        tags:      [ { name: 'api_platform.filter', id: 'group.updated' } ]
