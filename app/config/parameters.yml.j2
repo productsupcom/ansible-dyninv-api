@@ -1,0 +1,17 @@
+# This file is auto-filled during the Docker launch (or Ansible deploy)
+parameters:
+    mailer_transport: smtp
+    mailer_host: 127.0.0.1
+    mailer_user:  {{ ANSIBLE_REST_ADMIN_EMAIL }}
+    mailer_password: foobar
+    secret: {{ API_SECRET_TOKEN }}
+    cors_allow_origin: 'http://localhost:8080'
+    database_host: {{ MYSQL_HOST | default('db') }}
+    database_port: {{ MYSQL_PORT | default('3306') }}
+    database_name: {{ MYSQL_DATABASE }}
+    database_user: {{ MYSQL_USER }}
+    database_password: {{ MYSQL_PASSWORD }}
+    jwt_private_key_path: '%kernel.root_dir%/../var/jwt/private.pem' # ssh private key path
+    jwt_public_key_path:  '%kernel.root_dir%/../var/jwt/public.pem'  # ssh public key path
+    jwt_key_pass_phrase:  's3cr3tpass'                                         # ssh key pass phrase
+    jwt_token_ttl:        3600
