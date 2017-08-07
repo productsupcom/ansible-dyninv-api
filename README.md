@@ -58,4 +58,4 @@ ansible-playbook -i api.py --limit groupFoo
 # LICENSE
 Initial work is based on [api-platform](https://api-platform.com), the License from there applies.
 
-Everything else (`src/AppBundle/`) is MIT license Copyright (c) 2017 Productsup GmbH, Yorick Terweijden yt@productsup.com
+Everything else (`src/AppBundle/`) is MIT license Copyright (c) 2017 Products Up GmbH, Yorick Terweijden yt@productsup.com
